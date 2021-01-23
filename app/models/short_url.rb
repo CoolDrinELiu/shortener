@@ -1,5 +1,5 @@
 class ShortUrl < ApplicationRecord
-  before_save :generate_authentication_token
+  before_save :generate_authentication_token, :if => :new_record?
 
   validates :target_url, format: URI::regexp(%w[http https])
   validates_uniqueness_of :url, scope: [:target_url]
