@@ -1,0 +1,40 @@
+<%= link_to new_short_url_path do %>
+ <button type="button" class="btn btn-primary">New</button>
+<% end %>
+<div>
+<table class="table table-bordered table-condensed">
+  <thead>
+    <tr>
+      <th width="2%"></th>
+      <th width="7%">Shortened URL</th>
+      <th width="4%">Target URL</th>
+      <th width="6%">Clicks</th>
+      <th width="4%">Status</th>
+      <th width="5%">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @records.each_with_index do |r, idx| %>
+      <tr>
+        <td><%= idx + 1 %></td>
+        <td><%= link_to r.url, short_url_path(r.url), "data-turbolinks" => false %></td>
+        <td><%= r.target_url %></td>
+        <td><%= r.clicks %></td>
+        <td><%= status_txt(r.active) %></td>
+        <td>
+          <div>
+            <% if r.active %>
+              <%= link_to disabled_short_url_path(r), method: :put, class: 'blue' do %>
+                <button class="btn btn-danger" type="submit">Inactivate</button>
+              <% end %>
+            <% else %>
+              <%= link_to enabled_short_url_path(r), method: :put, class: 'blue' do %>
+                <button class="btn btn-success" type="submit">Activate</button>
+              <% end %>
+            <% end %>
+          </div>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

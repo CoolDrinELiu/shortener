@@ -1,0 +1,14 @@
+<% if @unstable == true %>
+<div class="alert alert-danger" role="alert">
+  The URL is not standard or valid, please try another one.
+  <button type="button" class="close" data-dismiss="alert">×</button>
+</div>
+
+<% end %>
+<%= form_for @record do |f| %>
+  <div class="form-group">
+    <%= f.label :target_url, "Target URL: " %>
+    <%= f.text_field :target_url, class: "form-control" %>
+  </div>
+    <%= f.submit "Create", :class => 'btn btn-primary' %>
+<% end %>
