@@ -19,13 +19,19 @@ RSpec.describe "ShortUrls", type: :request do
       )
     end
 
-    it "returns http success" do
+    it "should redirect to the target_url" do
       get "/short_urls/#{short_url.url}"
       expect(response).to redirect_to(short_url.target_url)
     end
 
     it "should add the clicks" do
       expect { get "/short_urls/#{short_url.url}" }.to change { short_url.reload.clicks }.by(1)
+    end
+
+    it "should render a 404 page if it's expired" do
+      short_url.update(active: false)
+      get "/short_urls/#{short_url.url}"
+      expect(response.status).to eq(404)
     end
   end
 

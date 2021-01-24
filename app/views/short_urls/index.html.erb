@@ -17,7 +17,7 @@
     <% @records.each_with_index do |r, idx| %>
       <tr>
         <td><%= idx + 1 %></td>
-        <td><%= link_to r.url, short_url_path(r.url), "data-turbolinks" => false %></td>
+        <td><%= link_to r.url, short_url_path(r.url), "data-turbolinks" => false, target: "_blank" %></td>
         <td><%= r.target_url %></td>
         <td><%= r.clicks %></td>
         <td><%= status_txt(r.active) %></td>

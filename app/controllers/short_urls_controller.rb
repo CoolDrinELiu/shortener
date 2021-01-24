@@ -7,11 +7,11 @@ class ShortUrlsController < ApplicationController
 
   def show
     r = ShortUrl.find_by_url(params[:id])
-    if r.present? && r.target_url.present?
+    if r.present? && r.target_url.present? && r.active
       r.increment!(:clicks)
       redirect_to r.target_url
     else
-      render status: 404
+      render file: '/public/404.html', status: '404'
     end
   end
 
